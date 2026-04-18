@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>USPS Assistant — Pub 28 & AMS</title>
+    <meta name="description" content="Enterprise USPS assistant grounded in Publication 28 and AMS documentation." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              usps: {
+                navy:   "#004B87",
+                blue:   "#0071BC",
+                red:    "#D22E1E",
+                sand:   "#F5F1E8",
+                ink:    "#111827",
+                mute:   "#6B7280",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html, body { height: 100%; background: #F5F1E8; }
+      .msg-enter { animation: fade 160ms ease-out both; }
+      @keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none;} }
+      .chip { background: #0071BC10; color: #004B87; }
+      .src-card:hover { background: #0071BC0D; }
+      .prose-answer { white-space: pre-wrap; word-wrap: break-word; }
+      .prose-answer code { background: #0f172a0a; padding: 0 4px; border-radius: 4px; }
+      .cite-pill {
+        display: inline-block;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.72rem;
+        padding: 1px 6px;
+        margin: 0 2px;
+        border-radius: 9999px;
+        background: #D22E1E;
+        color: white;
+        cursor: pointer;
+      }
+      .typing::after {
+        content: "▍";
+        color: #0071BC;
+        animation: blink 1s steps(2) infinite;
+        margin-left: 2px;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+      /* scrollbar */
+      #log::-webkit-scrollbar { width: 10px; }
+      #log::-webkit-scrollbar-thumb { background: #c7c2b2; border-radius: 8px; }
+    </style>
+  </head>
+  <body class="font-sans text-usps-ink">
+    <!-- Top bar -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-10">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-usps-navy flex items-center justify-center">
+            <svg viewBox="0 0 24 24" class="w-6 h-6 text-white" fill="currentColor" aria-hidden="true">
+              <path d="M3 7.5 12 3l9 4.5v1.7L12 5 3 9.2V7.5zM3 10.5l9 4.2 9-4.2V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8.5zM12 13.2 4.5 9.7V18c0 .6.4 1 1 1h13c.6 0 1-.4 1-1V9.7L12 13.2z"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-lg font-semibold text-usps-navy leading-tight">USPS Assistant</h1>
+            <p class="text-xs text-usps-mute leading-tight">Grounded in Publication 28 &amp; AMS documentation</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="status-chip" class="chip px-2.5 py-1 rounded-full text-xs font-medium">connecting…</span>
+          <button id="clear-btn" class="text-xs text-usps-mute hover:text-usps-ink px-2 py-1 rounded hover:bg-slate-100">Clear</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6">
+      <!-- Chat pane -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col min-h-[70vh]">
+        <div id="log" class="flex-1 overflow-y-auto px-5 py-5 space-y-4" aria-live="polite"></div>
+
+        <!-- suggestion chips -->
+        <div id="suggestions" class="px-5 pb-2 flex flex-wrap gap-2"></div>
+
+        <!-- composer -->
+        <form id="composer" class="border-t border-slate-200 p-3 flex items-end gap-2 bg-slate-50 rounded-b-2xl">
+          <label for="q" class="sr-only">Ask a USPS question</label>
+          <textarea id="q" rows="1"
+            class="flex-1 resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-usps-blue"
+            placeholder="Ask about Pub 28 addressing standards, AMS, DPV, ZIP+4, CASS…"></textarea>
+          <button id="send" type="submit"
+            class="bg-usps-navy hover:bg-usps-blue text-white font-medium rounded-xl px-4 py-3 text-sm disabled:opacity-50">
+            Send
+          </button>
+        </form>
+      </section>
+
+      <!-- Sources / system pane -->
+      <aside class="space-y-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+          <h2 class="text-sm font-semibold text-usps-navy mb-2">Sources for the last answer</h2>
+          <div id="sources" class="space-y-2 text-sm text-usps-mute">
+            <p class="text-xs">Citations will appear here after each response.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 text-xs text-usps-mute space-y-2">
+          <h3 class="text-sm font-semibold text-usps-navy">About</h3>
+          <p>This assistant answers technical questions using Retrieval-Augmented Generation (RAG) over real excerpts from USPS <strong>Publication 28 — Postal Addressing Standards</strong> and the USPS <strong>Address Management System (AMS)</strong> documentation.</p>
+          <p>Responses cite source chunks inline. For authoritative text, consult <a class="text-usps-blue hover:underline" href="https://pe.usps.com/text/pub28/welcome.htm" target="_blank" rel="noopener">pe.usps.com</a>.</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="max-w-6xl mx-auto px-4 pb-6 text-xs text-usps-mute">
+      Demo prototype — not affiliated with or endorsed by the United States Postal Service.
+    </footer>
+
+    <script>
+      const API = {
+        health: "/health",
+        chat: "/chat",
+        stream: "/chat/stream",
+      };
+
+      const log = document.getElementById("log");
+      const sourcesEl = document.getElementById("sources");
+      const form = document.getElementById("composer");
+      const input = document.getElementById("q");
+      const sendBtn = document.getElementById("send");
+      const statusChip = document.getElementById("status-chip");
+      const clearBtn = document.getElementById("clear-btn");
+      const suggestionsEl = document.getElementById("suggestions");
+
+      const SUGGESTIONS = [
+        "What are the USPS standard secondary unit designator abbreviations?",
+        "How should the last line of a city/state/ZIP address be formatted?",
+        "What does the AMS API do and what files does it use?",
+        "Explain DPV vs LACSLink vs SuiteLink.",
+        "What's the rule for using the # sign in an address?",
+      ];
+
+      let conversationId = null;
+      let history = [];
+      let inflight = false;
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, c => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        })[c]);
+      }
+
+      function renderCitations(cites) {
+        if (!cites || !cites.length) {
+          sourcesEl.innerHTML = '<p class="text-xs">No citations returned.</p>';
+          return;
+        }
+        sourcesEl.innerHTML = cites.map((c, i) => `
+          <a class="src-card block rounded-lg border border-slate-200 px-3 py-2 hover:border-usps-blue transition"
+             href="${c.url}" target="_blank" rel="noopener">
+            <div class="flex items-center gap-2">
+              <span class="cite-pill">${escapeHtml(c.chunk_id)}</span>
+              <span class="text-xs text-usps-mute">score ${c.score.toFixed(2)}</span>
+            </div>
+            <div class="mt-1 text-xs font-semibold text-usps-ink">${escapeHtml(c.title)}</div>
+            <div class="text-xs text-usps-mute">${escapeHtml(c.heading)} · § ${escapeHtml(c.section)}</div>
+            <div class="mt-1 text-xs text-slate-600">${escapeHtml(c.snippet)}</div>
+          </a>
+        `).join("");
+      }
+
+      function addMessage(role, text, opts = {}) {
+        const wrap = document.createElement("div");
+        wrap.className = "msg-enter flex gap-3 " + (role === "user" ? "justify-end" : "");
+        const bubble = document.createElement("div");
+        bubble.className = [
+          "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed prose-answer",
+          role === "user"
+            ? "bg-usps-navy text-white rounded-br-sm"
+            : "bg-slate-50 border border-slate-200 text-usps-ink rounded-bl-sm",
+        ].join(" ");
+        if (opts.typing) bubble.classList.add("typing");
+        bubble.textContent = text;
+        wrap.appendChild(bubble);
+        log.appendChild(wrap);
+        log.scrollTop = log.scrollHeight;
+        return bubble;
+      }
+
+      function formatWithCitations(text) {
+        // Render [chunk-id] as a red pill
+        return escapeHtml(text).replace(/\[([a-z0-9\-#]+)\]/gi,
+          (_, id) => `<span class="cite-pill" title="Citation">[${id}]</span>`);
+      }
+
+      async function checkHealth() {
+        try {
+          const r = await fetch(API.health);
+          const h = await r.json();
+          statusChip.textContent =
+            `${h.llm_provider} · ${h.num_chunks} chunks`;
+          statusChip.classList.remove("chip");
+          statusChip.className = "px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700";
+        } catch (e) {
+          statusChip.textContent = "backend offline";
+          statusChip.className = "px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-usps-red";
+        }
+      }
+
+      function renderSuggestions() {
+        suggestionsEl.innerHTML = SUGGESTIONS.map(s =>
+          `<button class="text-xs border border-slate-300 rounded-full px-3 py-1 hover:bg-white hover:border-usps-blue">${escapeHtml(s)}</button>`
+        ).join("");
+        [...suggestionsEl.children].forEach((b, i) => {
+          b.addEventListener("click", () => {
+            input.value = SUGGESTIONS[i];
+            input.focus();
+          });
+        });
+      }
+
+      async function streamChat(question) {
+        const placeholder = addMessage("assistant", "", { typing: true });
+        let accumulated = "";
+        const resp = await fetch(API.stream, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            messages: [...history, { role: "user", content: question }],
+            conversation_id: conversationId,
+          }),
+        });
+        if (!resp.ok || !resp.body) {
+          placeholder.classList.remove("typing");
+          placeholder.textContent = `Error: ${resp.status}`;
+          return;
+        }
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buf = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, { stream: true });
+          const events = buf.split("\n\n");
+          buf = events.pop() || "";
+          for (const evt of events) {
+            const lines = evt.split("\n");
+            const ev = lines.find(l => l.startsWith("event:"))?.slice(6).trim();
+            const data = lines.find(l => l.startsWith("data:"))?.slice(5).trim();
+            if (!ev || !data) continue;
+            let payload;
+            try { payload = JSON.parse(data); } catch { continue; }
+            if (ev === "meta") conversationId = payload.conversation_id;
+            if (ev === "token") {
+              accumulated += payload.text;
+              placeholder.innerHTML = formatWithCitations(accumulated);
+            }
+            if (ev === "citations") renderCitations(payload);
+            if (ev === "error") {
+              placeholder.classList.remove("typing");
+              placeholder.innerHTML = `<span class="text-usps-red">Error: ${escapeHtml(payload.message)}</span>`;
+            }
+          }
+        }
+        placeholder.classList.remove("typing");
+        history.push({ role: "user", content: question });
+        history.push({ role: "assistant", content: accumulated });
+      }
+
+      async function fallbackChat(question) {
+        // Non-streaming path (used if streaming fails)
+        const placeholder = addMessage("assistant", "", { typing: true });
+        try {
+          const r = await fetch(API.chat, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              messages: [...history, { role: "user", content: question }],
+              conversation_id: conversationId,
+            }),
+          });
+          const j = await r.json();
+          conversationId = j.conversation_id;
+          placeholder.classList.remove("typing");
+          placeholder.innerHTML = formatWithCitations(j.answer);
+          renderCitations(j.citations);
+          history.push({ role: "user", content: question });
+          history.push({ role: "assistant", content: j.answer });
+        } catch (e) {
+          placeholder.classList.remove("typing");
+          placeholder.innerHTML = `<span class="text-usps-red">Error: ${escapeHtml(String(e))}</span>`;
+        }
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q || inflight) return;
+        inflight = true; sendBtn.disabled = true;
+        addMessage("user", q);
+        input.value = "";
+        try {
+          await streamChat(q);
+        } catch {
+          await fallbackChat(q);
+        } finally {
+          inflight = false; sendBtn.disabled = false;
+          input.focus();
+        }
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+      });
+      input.addEventListener("input", () => {
+        input.style.height = "auto";
+        input.style.height = Math.min(input.scrollHeight, 160) + "px";
+      });
+
+      clearBtn.addEventListener("click", () => {
+        history = []; conversationId = null;
+        log.innerHTML = "";
+        sourcesEl.innerHTML = '<p class="text-xs">Citations will appear here after each response.</p>';
+        greet();
+      });
+
+      function greet() {
+        addMessage("assistant",
+          "Hi — I'm the USPS Assistant. I answer technical questions using real excerpts from Publication 28 and the AMS documentation. Every factual claim cites its source (look for the red [id] pills and the Sources panel). Try one of the prompts below.");
+      }
+
+      renderSuggestions();
+      greet();
+      checkHealth();
+    </script>
+  </body>
+</html>

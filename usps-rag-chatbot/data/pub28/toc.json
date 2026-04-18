@@ -1,0 +1,34 @@
+{
+  "doc_id": "pub28-toc",
+  "title": "Publication 28 \u2014 Table of Contents (October 2024)",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "psn": "7610-03-000-3688",
+    "url": "https://pe.usps.com/text/pub28/welcome.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-toc-01",
+      "section": "TOC",
+      "heading": "Chapter 1 \u2014 Introduction",
+      "text": "Chapter 1 Introduction covers: 11 Background (111 Purpose, 112 Scope, 113 Additional Benefits); 12 Overview (121 List Maintenance, 122 List Correction, 123 Updates, 124 Address Output, 125 Deliverability); 13 Address Information Systems Products and Services.",
+      "keywords": ["introduction", "purpose", "scope", "list maintenance", "deliverability"]
+    },
+    {
+      "chunk_id": "pub28-toc-02",
+      "section": "TOC",
+      "heading": "Chapter 2 \u2014 Postal Addressing Standards",
+      "text": "Chapter 2 Postal Addressing Standards covers: 21 General (211 Standardized Delivery Address Line and Last Line, 212 Format, 213 Secondary Address Unit Designators, 214 Attention Line, 215 Dual Addresses); 22 Last Line of the Address; 23 Delivery Address Line; 24 Rural Route Addresses; 25 Highway Contract Route Addresses; 26 General Delivery Addresses; 27 United States Postal Service Addresses; 28 Post Office Box Addresses; 29 Puerto Rico Addresses.",
+      "keywords": ["chapter 2", "delivery address", "last line", "post office box", "rural route"]
+    },
+    {
+      "chunk_id": "pub28-toc-03",
+      "section": "TOC",
+      "heading": "Chapter 3 and Appendices",
+      "text": "Chapter 3 Business Addressing Standards covers sections 31 through 35, including compression guidelines. Appendices A through J include international addresses, street suffix abbreviations, state abbreviations, and regional formats.",
+      "keywords": ["business addressing", "compression", "international", "appendix"]
+    }
+  ]
+}

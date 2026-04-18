@@ -1,0 +1,26 @@
+{
+  "doc_id": "pub28-212",
+  "title": "Publication 28 \u2014 212 Format",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28c2_002.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-212-01",
+      "section": "212",
+      "heading": "Format \u2014 Alignment and Capitalization",
+      "text": "Format all lines of the address with a uniform left margin. Uppercase letters are preferred on all lines of the address block.",
+      "keywords": ["format", "left margin", "uppercase", "capitalization", "address block"]
+    },
+    {
+      "chunk_id": "pub28-212-02",
+      "section": "212",
+      "heading": "Format \u2014 Font and OCR Readability",
+      "text": "Lowercase lettering in various typefaces is acceptable provided that the fonts and typefaces satisfy Postal Service guidelines for optical character recognition (OCR) readability. See the Domestic Mail Manual (DMM) for specific OCR readability requirements; these apply to qualify for automation postal rates, and other rate categories may have additional requirements.",
+      "keywords": ["OCR", "font", "typeface", "automation rates", "DMM"]
+    }
+  ]
+}

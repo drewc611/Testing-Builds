@@ -1,0 +1,33 @@
+{
+  "doc_id": "pub28-213",
+  "title": "Publication 28 \u2014 213 Secondary Address Unit Designators",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28c2_003.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-213-01",
+      "section": "213",
+      "heading": "Secondary Unit Designators \u2014 Placement",
+      "text": "Secondary address unit designators (such as APARTMENT or SUITE) must appear on the mailpiece for addresses with secondary units. The preferred placement is at the end of the Delivery Address Line. When the Delivery Address Line is too long to include the secondary address information, place the secondary address information on the line immediately above the Delivery Address Line.",
+      "keywords": ["secondary unit", "apartment", "suite", "placement", "delivery address line"]
+    },
+    {
+      "chunk_id": "pub28-213-02",
+      "section": "213",
+      "heading": "Secondary Unit Designators \u2014 Standard Abbreviations",
+      "text": "Common secondary unit designators and their Postal Service standard abbreviations include: APARTMENT = APT; BUILDING = BLDG; FLOOR = FL; SUITE = STE; UNIT = UNIT; ROOM = RM; DEPARTMENT = DEPT. Use the approved abbreviation for a standardized address.",
+      "keywords": ["APT", "BLDG", "FL", "STE", "UNIT", "RM", "DEPT", "abbreviations"]
+    },
+    {
+      "chunk_id": "pub28-213-03",
+      "section": "213",
+      "heading": "Pound Sign Usage",
+      "text": "If the pound sign (#) is used, there must be a space between the pound sign and the secondary number. The pound sign (#) should not be used as a secondary unit designator if the correct designation, such as APT or STE, is known or is shown in the ZIP+4 file. Note that Private Mail Box (PMB) addresses may prohibit pound sign usage.",
+      "keywords": ["pound sign", "#", "PMB", "private mail box"]
+    }
+  ]
+}

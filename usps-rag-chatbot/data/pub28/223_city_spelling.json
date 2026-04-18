@@ -1,0 +1,19 @@
+{
+  "doc_id": "pub28-223",
+  "title": "Publication 28 \u2014 223 Spelling of City Names",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28c2_008.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-223-01",
+      "section": "223",
+      "heading": "Spelling of City Names",
+      "text": "Spell city names in their entirety. When abbreviations must be used due to labeling constraints, use only the approved 13-character abbreviations provided in the City State file.",
+      "keywords": ["city name spelling", "13-character abbreviation", "city state file"]
+    }
+  ]
+}

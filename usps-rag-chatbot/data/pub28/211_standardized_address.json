@@ -1,0 +1,20 @@
+{
+  "doc_id": "pub28-211",
+  "title": "Publication 28 \u2014 211 Standardized Delivery Address Line and Last Line",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "psn": "7610-03-000-3688",
+    "url": "https://pe.usps.com/text/pub28/28c2_001.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-211-01",
+      "section": "211",
+      "heading": "Standardized Delivery Address Line and Last Line",
+      "text": "The Delivery Address Line and the Last Line of addresses output to the mailpiece should be complete, standardized, and validated with the ZIP+4 file and City State files, respectively. A complete address is one that has all the address elements necessary to allow an exact match with the current Postal Service ZIP+4 and City State files to provide the most current, correct, and deliverable ZIP+4 Code available. A standardized address is one that includes all required address elements and that uses the Postal Service standard abbreviations (as shown in this publication or in the current Postal Service ZIP+4 file).",
+      "keywords": ["standardized address", "complete address", "ZIP+4", "City State file", "validation"]
+    }
+  ]
+}
