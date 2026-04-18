@@ -13,6 +13,7 @@ import pytest
 from backend.ingest.pdf_loader import build_pdf_chunks, load_sidecar
 from backend.rag.chunker import load_kb, as_context_block
 from backend.rag.embeddings import EchoEmbeddings
+from backend.rag.pipeline import SYSTEM_PROMPT
 from backend.rag.retrieval import InMemoryStore
 
 
@@ -124,6 +125,22 @@ def test_load_kb_merges_json_and_pdf_chunks():
     if pdf_chunks:
         ids = [c.chunk_id for c in chunks]
         assert len(ids) == len(set(ids)), "chunk ids must be unique across JSON + PDF"
+
+
+def test_system_prompt_enforces_grounded_and_general_split():
+    p = SYSTEM_PROMPT
+    # Citation requirement
+    assert "[pub28-213-02]" in p or "[pub28-" in p
+    assert "[cass-cycle-o-" in p, "prompt must reference CASS chunk id format"
+    # Explicit grounded/general labels
+    assert "GROUNDED" in p and "GENERAL" in p
+    assert "General guidance" in p
+    # Authoritative source pointers for fallbacks
+    assert "pe.usps.com" in p
+    assert "postalpro.usps.com" in p
+    # Technical vocabulary guidance
+    for term in ("DPV", "LACSLink", "ZIP+4", "NDC", "IMb"):
+        assert term in p, f"prompt missing technical term: {term}"
 
 
 if __name__ == "__main__":
