@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     anthropic_model: str = Field(default="claude-sonnet-4-6", alias="ANTHROPIC_MODEL")
     openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
     openai_model: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL")
+    ollama_base_url: str = Field(default="http://localhost:11434", alias="OLLAMA_BASE_URL")
+    ollama_model: str = Field(default="llama3.1:8b", alias="OLLAMA_MODEL")
 
     # Embeddings / vector store
     embeddings_provider: str = Field(default="sentence-transformers", alias="EMBEDDINGS_PROVIDER")

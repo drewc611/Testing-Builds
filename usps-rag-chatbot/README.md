@@ -75,9 +75,26 @@ All provider choices are environment variables — no code change required.
 
 | Variable | Values | Default |
 |---|---|---|
-| `LLM_PROVIDER` | `anthropic`, `openai`, `echo` | `echo` |
+| `LLM_PROVIDER` | `ollama`, `anthropic`, `openai`, `echo` | `ollama` |
 | `EMBEDDINGS_PROVIDER` | `sentence-transformers`, `echo` | `sentence-transformers` |
 | `VECTOR_STORE` | `faiss`, `memory` | `faiss` |
+
+### Ollama (default — local, open-source, free)
+
+The default `LLM_PROVIDER=ollama` uses [Ollama](https://ollama.com) to serve
+`llama3.1:8b` (Meta Llama 3.1 8B Instruct) locally. Strong instruction-following
+and grounded generation make it well suited to address-verification Q&A over
+retrieved Pub 28 / CASS context.
+
+```bash
+# One-time install
+brew install ollama          # macOS
+ollama serve &               # start the daemon on localhost:11434
+ollama pull llama3.1:8b      # ~4.9 GB, quantized 4-bit
+```
+
+Lighter alternative for low-memory Macs: `OLLAMA_MODEL=llama3.2:3b`.
+Stronger instruction-follower at the same size: `OLLAMA_MODEL=qwen2.5:7b-instruct`.
 
 The pipeline builds against the `LLMProvider`, `EmbeddingProvider`, and `VectorStore` interfaces in `backend/`, so adding Pinecone, pgvector, Bedrock, etc., is a new class plus a factory line.
 

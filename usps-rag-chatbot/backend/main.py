@@ -43,6 +43,8 @@ _llm = build_llm(
     anthropic_model=settings.anthropic_model,
     openai_api_key=settings.openai_api_key,
     openai_model=settings.openai_model,
+    ollama_base_url=settings.ollama_base_url,
+    ollama_model=settings.ollama_model,
 )
 
 
