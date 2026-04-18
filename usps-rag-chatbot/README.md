@@ -92,6 +92,31 @@ The pipeline builds against the `LLMProvider`, `EmbeddingProvider`, and `VectorS
 
 ---
 
+## Adding full-document PDFs
+
+The KB also ingests PDFs dropped anywhere under `data/`. Pair each PDF with a
+sidecar `<stem>.meta.json` so citations link back to the authoritative URL:
+
+```
+data/pub28/source/pub28.pdf
+data/pub28/source/pub28.meta.json
+```
+
+```json
+{
+  "doc_id": "pub28-full",
+  "title": "Publication 28 — Postal Addressing Standards",
+  "url": "https://pe.usps.com/text/pub28/welcome.htm"
+}
+```
+
+Each page becomes one chunk (long pages split on sentence boundaries, keyed
+`<doc_id>-p###-<n>`). Re-run `python -m backend.ingest.ingest` to re-index.
+PDFs without a sidecar still index, but citations show the filename instead
+of a URL.
+
+---
+
 ## Testing
 
 ```bash

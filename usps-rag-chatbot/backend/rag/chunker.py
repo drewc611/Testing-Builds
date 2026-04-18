@@ -60,9 +60,11 @@ def _split_long(text: str) -> List[str]:
     return out
 
 
-def load_kb(data_root: Path) -> List[Chunk]:
+def _load_json_kb(data_root: Path) -> List[Chunk]:
     chunks: List[Chunk] = []
     for path in sorted(Path(data_root).rglob("*.json")):
+        if path.name.endswith(".meta.json"):
+            continue
         with open(path, "r", encoding="utf-8") as f:
             doc = json.load(f)
         url = doc.get("source", {}).get("url", "")
@@ -84,6 +86,14 @@ def load_kb(data_root: Path) -> List[Chunk]:
                         keywords=raw.get("keywords", []),
                     )
                 )
+    return chunks
+
+
+def load_kb(data_root: Path) -> List[Chunk]:
+    chunks = _load_json_kb(data_root)
+    from backend.ingest.pdf_loader import load_pdfs
+
+    chunks.extend(load_pdfs(data_root))
     return chunks
 
 
