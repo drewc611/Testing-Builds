@@ -1,0 +1,33 @@
+{
+  "doc_id": "pub28-appendix-b",
+  "title": "Publication 28 \u2014 Appendix B: Two-Letter State and Possession Abbreviations",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28apb.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-appb-01",
+      "section": "Appendix B",
+      "heading": "U.S. State Abbreviations",
+      "text": "USPS two-letter state abbreviations: AL (Alabama), AK (Alaska), AZ (Arizona), AR (Arkansas), CA (California), CO (Colorado), CT (Connecticut), DE (Delaware), DC (District of Columbia), FL (Florida), GA (Georgia), HI (Hawaii), ID (Idaho), IL (Illinois), IN (Indiana), IA (Iowa), KS (Kansas), KY (Kentucky), LA (Louisiana), ME (Maine), MD (Maryland), MA (Massachusetts), MI (Michigan), MN (Minnesota), MS (Mississippi), MO (Missouri), MT (Montana), NE (Nebraska), NV (Nevada), NH (New Hampshire), NJ (New Jersey), NM (New Mexico), NY (New York), NC (North Carolina), ND (North Dakota), OH (Ohio), OK (Oklahoma), OR (Oregon), PA (Pennsylvania), RI (Rhode Island), SC (South Carolina), SD (South Dakota), TN (Tennessee), TX (Texas), UT (Utah), VT (Vermont), VA (Virginia), WA (Washington), WV (West Virginia), WI (Wisconsin), WY (Wyoming).",
+      "keywords": ["state abbreviation", "two-letter"]
+    },
+    {
+      "chunk_id": "pub28-appb-02",
+      "section": "Appendix B",
+      "heading": "U.S. Territories and Military",
+      "text": "Territories and possessions: AS (American Samoa), GU (Guam), MP (Northern Mariana Islands), PR (Puerto Rico), VI (Virgin Islands), FM (Federated States of Micronesia), MH (Marshall Islands), PW (Palau). Military designations: AE (Armed Forces Europe, Middle East, Canada), AP (Armed Forces Pacific), AA (Armed Forces Americas excluding Canada).",
+      "keywords": ["territory", "military", "APO", "FPO", "AE", "AP", "AA"]
+    },
+    {
+      "chunk_id": "pub28-appb-03",
+      "section": "Appendix B",
+      "heading": "Geographic Directional Abbreviations",
+      "text": "Directional abbreviations: N (North), E (East), S (South), W (West), NE (Northeast), SE (Southeast), NW (Northwest), SW (Southwest).",
+      "keywords": ["directional", "geographic"]
+    }
+  ]
+}

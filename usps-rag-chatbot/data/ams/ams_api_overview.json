@@ -1,0 +1,46 @@
+{
+  "doc_id": "ams-api-overview",
+  "title": "USPS Address Matching System (AMS) API \u2014 Overview",
+  "source": {
+    "publication": "USPS PostalPro \u2014 Address Matching System API",
+    "url": "https://postalpro.usps.com/address-quality/ams-api",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "ams-api-01",
+      "section": "Overview",
+      "heading": "What AMS API Is",
+      "text": "AMS API is software used to develop address matching software that provides access to USPS matching logic, which allows users to verify the accuracy of ZIP+4 returns. AMS API may be integrated within a manufacturer's product and redistributed by the manufacturer, enabling vendors to embed USPS address verification capabilities into their own solutions.",
+      "keywords": ["AMS", "API", "address matching", "ZIP+4", "verification"]
+    },
+    {
+      "chunk_id": "ams-api-02",
+      "section": "Contents",
+      "heading": "AMS API Product Package",
+      "text": "The AMS API Developer's Kit contains: API library(s) for each specific computer platform; the interface definition file (ZIP4.H); a test utility (SAMPLE.EXE); test utility source code; sample configuration data files; and user documentation. The kit is available through Electronic Product Fulfillment (EPF).",
+      "keywords": ["developer kit", "ZIP4.H", "SAMPLE.EXE", "EPF", "libraries"]
+    },
+    {
+      "chunk_id": "ams-api-03",
+      "section": "Matching Logic",
+      "heading": "ZIP+4 Matching and Standardization",
+      "text": "The AMS API exposes USPS matching capabilities to validate address accuracy and return the standardized address produced by the matching engine. The verification process confirms ZIP+4 code precision for mail preparation purposes.",
+      "keywords": ["matching logic", "standardized address", "ZIP+4 match"]
+    },
+    {
+      "chunk_id": "ams-api-04",
+      "section": "Data Files",
+      "heading": "Supporting Address Quality Products",
+      "text": "The AMS API software works in conjunction with DPV\u00ae (Delivery Point Validation), LACSLink\u00ae (Locatable Address Conversion System), SuiteLink\u00ae, and eLOT\u00ae (Enhanced Line of Travel) files. The AMS API Product is updated monthly via Electronic Product Fulfillment.",
+      "keywords": ["DPV", "LACSLink", "SuiteLink", "eLOT", "monthly update"]
+    },
+    {
+      "chunk_id": "ams-api-05",
+      "section": "Support",
+      "heading": "National Customer Support Center",
+      "text": "For more information about AMS API, or to obtain order forms, contact the USPS National Customer Support Center (NCSC) at 877-640-0724.",
+      "keywords": ["NCSC", "support", "877-640-0724"]
+    }
+  ]
+}

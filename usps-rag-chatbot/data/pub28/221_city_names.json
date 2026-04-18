@@ -1,0 +1,19 @@
+{
+  "doc_id": "pub28-221",
+  "title": "Publication 28 \u2014 221 City Names",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28c2_006.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-221-01",
+      "section": "221",
+      "heading": "City Names \u2014 Approved Last Line Names",
+      "text": "It is strongly recommended that addresses use only approved Last Line (city) names as described in the Postal Service City State file currently in effect. City names marked as YES in the City State file Mailing Name indicator are required for complete, standardized addresses; those marked NO should not be used in standardized addresses. For a complete and standardized address, abbreviations for city or state names must be shown in the Postal Service City State file. Exception: if you are preparing prebarcoded mail, city names set to NO for Mailing Name can be used.",
+      "keywords": ["city name", "city state file", "mailing name", "prebarcoded"]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "doc_id": "ams-coding-workflow",
+  "title": "AMS Coding Workflow \u2014 How USPS Addresses Are Coded",
+  "source": {
+    "publication": "USPS PostalPro \u2014 AMS API; USPS RIBBS Address Management Products",
+    "url": "https://postalpro.usps.com/resources/address-quality/ams-api",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "ams-work-01",
+      "section": "Workflow",
+      "heading": "Typical AMS Coding Steps",
+      "text": "A typical AMS coding workflow: (1) parse the input address into components (primary number, predirectional, street name, suffix, postdirectional, secondary designator, secondary number, city, state, ZIP); (2) standardize components using Pub 28 rules and USPS reference files; (3) match to the ZIP+4 file to obtain the five-digit ZIP and +4 add-on; (4) apply DPV to confirm the address is a known delivery point; (5) apply LACSLink to update converted rural addresses; (6) apply SuiteLink to append missing secondary information when available; (7) return the coded address with footnotes describing the match outcome.",
+      "keywords": ["workflow", "parse", "standardize", "ZIP+4", "DPV", "LACSLink", "SuiteLink"]
+    },
+    {
+      "chunk_id": "ams-work-02",
+      "section": "Return Codes",
+      "heading": "Common AMS Return Indicators",
+      "text": "AMS-coded results commonly include: a ZIP+4 match flag; a DPV confirmation indicator (Y = confirmed, N = not confirmed, S = confirmed primary but not secondary, D = confirmed primary with missing secondary); footnote codes describing why a secondary was missing or why a CMRA match was detected; and the fully standardized output address. Exact flags vary by AMS API release \u2014 consult the current AMS API Developer's Kit user documentation for authoritative codes.",
+      "keywords": ["DPV return", "footnote", "CMRA", "developer kit"]
+    },
+    {
+      "chunk_id": "ams-work-03",
+      "section": "Update Cadence",
+      "heading": "Data Refresh",
+      "text": "USPS AMS data files and the AMS API are updated on a monthly cycle via Electronic Product Fulfillment (EPF). CASS-certified users must use current data to maintain certification; stale data can invalidate mailing discounts.",
+      "keywords": ["EPF", "monthly", "CASS"]
+    }
+  ]
+}

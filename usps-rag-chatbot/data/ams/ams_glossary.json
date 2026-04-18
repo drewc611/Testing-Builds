@@ -1,0 +1,60 @@
+{
+  "doc_id": "ams-glossary",
+  "title": "AMS and Address Quality Glossary",
+  "source": {
+    "publication": "USPS PostalPro \u2014 Address Quality Solutions; USPS AMS definitions",
+    "url": "https://postalpro.usps.com/address-quality",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "ams-gloss-01",
+      "section": "Definition",
+      "heading": "Address Management System (AMS)",
+      "text": "The Address Management System (AMS) is the national USPS database of every delivery address with its associated ZIP Code, ZIP+4 code, and city/state name. It serves as the foundation of data for all USPS address correction tools and is the authoritative source used by licensed vendors for address matching.",
+      "keywords": ["AMS", "delivery address database", "authoritative", "address correction"]
+    },
+    {
+      "chunk_id": "ams-gloss-02",
+      "section": "Definition",
+      "heading": "DPV \u2014 Delivery Point Validation",
+      "text": "DPV\u00ae (Delivery Point Validation) is a USPS product used to verify that an address is a known delivery point in the USPS database. DPV matching answers whether the secondary (apartment/suite) information is valid at the primary address, beyond the ZIP+4 match.",
+      "keywords": ["DPV", "delivery point", "secondary validation"]
+    },
+    {
+      "chunk_id": "ams-gloss-03",
+      "section": "Definition",
+      "heading": "LACSLink",
+      "text": "LACSLink\u00ae (Locatable Address Conversion System) updates rural-style addresses (e.g., Route and Box) to city-style addresses when a 911 emergency system conversion has occurred, and also updates street-style addresses that have been renamed or renumbered.",
+      "keywords": ["LACSLink", "rural", "911 conversion"]
+    },
+    {
+      "chunk_id": "ams-gloss-04",
+      "section": "Definition",
+      "heading": "SuiteLink",
+      "text": "SuiteLink\u00ae adds known secondary (suite) information to a business address when that information is missing from the input address and available in the USPS database.",
+      "keywords": ["SuiteLink", "secondary", "business address"]
+    },
+    {
+      "chunk_id": "ams-gloss-05",
+      "section": "Definition",
+      "heading": "eLOT \u2014 Enhanced Line of Travel",
+      "text": "eLOT\u00ae (Enhanced Line of Travel) provides mailers with a sequence number for each ZIP+4 that reflects the approximate order in which the delivery point is visited by the carrier, enabling enhanced carrier route presort.",
+      "keywords": ["eLOT", "line of travel", "carrier route presort"]
+    },
+    {
+      "chunk_id": "ams-gloss-06",
+      "section": "Definition",
+      "heading": "CASS \u2014 Coding Accuracy Support System",
+      "text": "CASS\u2122 (Coding Accuracy Support System) is the USPS certification process for address-matching software. CASS certification ensures that a vendor's address matching software meets USPS requirements for ZIP+4, DPV, LACSLink, and SuiteLink matching accuracy; certification is required to qualify mailings for automation postage rates.",
+      "keywords": ["CASS", "certification", "automation rates"]
+    },
+    {
+      "chunk_id": "ams-gloss-07",
+      "section": "Definition",
+      "heading": "City State File",
+      "text": "The City State File is a USPS data product that contains the authoritative list of city and state names (and their 13-character abbreviations) associated with every ZIP Code. Pub 28 references this file for the required last-line city name.",
+      "keywords": ["city state file", "ZIP", "last line"]
+    }
+  ]
+}

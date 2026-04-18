@@ -1,0 +1,47 @@
+{
+  "doc_id": "pub28-233",
+  "title": "Publication 28 \u2014 233 Directionals",
+  "source": {
+    "publication": "USPS Publication 28, Postal Addressing Standards",
+    "edition": "October 2024",
+    "url": "https://pe.usps.com/text/pub28/28c2_014.htm",
+    "retrieved": "2026-04-18"
+  },
+  "chunks": [
+    {
+      "chunk_id": "pub28-233-01",
+      "section": "233",
+      "heading": "Directionals \u2014 Definition",
+      "text": "A directional is the part of the address that gives directional information for delivery (i.e., N, S, E, W, NE, NW, SE, SW). Directionals must be abbreviated to one or two characters when they match standard directional designations in AIS files.",
+      "keywords": ["directional", "N", "S", "E", "W", "NE", "NW", "SE", "SW", "AIS"]
+    },
+    {
+      "chunk_id": "pub28-233-02",
+      "section": "233.21",
+      "heading": "Predirectional Field",
+      "text": "When a directional word appears as the first word in a street name with no other directional to its left, it should be abbreviated and placed in the predirectional field.",
+      "keywords": ["predirectional"]
+    },
+    {
+      "chunk_id": "pub28-233-03",
+      "section": "233.22",
+      "heading": "Postdirectional Field",
+      "text": "When a directional appears to the right of the street name and suffix, abbreviate it and place it in the postdirectional field.",
+      "keywords": ["postdirectional"]
+    },
+    {
+      "chunk_id": "pub28-233-04",
+      "section": "233.23",
+      "heading": "Two Directionals",
+      "text": "Consecutive directional words (except NORTH-SOUTH or EAST-WEST combinations) become either pre- or postdirectionals. Exception: NORTH-SOUTH or EAST-WEST pairs have the second directional spelled out completely within the street name field.",
+      "keywords": ["two directionals", "north south", "east west"]
+    },
+    {
+      "chunk_id": "pub28-233-05",
+      "section": "233.3",
+      "heading": "Directional as Part of Street Name",
+      "text": "When a directional appears between the street name and suffix, it becomes part of the street name and must be spelled out completely in the ZIP+4 file and on the mailpiece.",
+      "keywords": ["directional as street name"]
+    }
+  ]
+}
