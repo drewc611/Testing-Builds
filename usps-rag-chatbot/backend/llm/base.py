@@ -34,6 +34,10 @@ def build_llm(provider: str, **cfg) -> LLMProvider:
         from backend.llm.openai_provider import OpenAIProvider
 
         return OpenAIProvider(api_key=cfg["openai_api_key"], model=cfg["openai_model"])
+    if provider == "ollama":
+        from backend.llm.ollama_provider import OllamaProvider
+
+        return OllamaProvider(base_url=cfg["ollama_base_url"], model=cfg["ollama_model"])
     if provider == "echo":
         from backend.llm.echo_provider import EchoProvider
 

@@ -127,6 +127,18 @@ def test_load_kb_merges_json_and_pdf_chunks():
         assert len(ids) == len(set(ids)), "chunk ids must be unique across JSON + PDF"
 
 
+def test_build_llm_wires_ollama_provider():
+    from backend.llm.base import build_llm
+
+    llm = build_llm(
+        "ollama",
+        ollama_base_url="http://localhost:11434",
+        ollama_model="llama3.1:8b",
+    )
+    assert llm.name == "ollama"
+    assert llm.model == "llama3.1:8b"
+
+
 def test_system_prompt_enforces_grounded_and_general_split():
     p = SYSTEM_PROMPT
     # Citation requirement
