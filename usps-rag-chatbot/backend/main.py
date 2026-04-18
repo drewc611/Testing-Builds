@@ -9,6 +9,7 @@ Endpoints:
 from __future__ import annotations
 
 import json
+import logging
 import uuid
 from pathlib import Path
 from typing import AsyncIterator
@@ -26,13 +27,15 @@ from backend.telemetry import audit, configure_logging, timer
 
 settings = get_settings()
 configure_logging(settings.log_level)
+_log = logging.getLogger("usps_rag")
 
 app = FastAPI(title="USPS RAG Chatbot", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
 # Build pipeline and LLM once at startup.
@@ -90,6 +93,8 @@ def chat(req: ChatRequest) -> ChatResponse:
 
 @app.post("/chat/stream")
 def chat_stream(req: ChatRequest):
+    if not req.messages:
+        raise HTTPException(400, "messages required")
     user_msg = next((m.content for m in reversed(req.messages) if m.role == "user"), None)
     if not user_msg:
         raise HTTPException(400, "at least one user message required")
@@ -105,8 +110,11 @@ def chat_stream(req: ChatRequest):
             for delta in _llm.stream(messages):
                 if delta:
                     yield _sse("token", {"text": delta})
-        except Exception as exc:  # surface errors to the client
-            yield _sse("error", {"message": str(exc)})
+        except Exception:
+            # Log full details server-side; return a generic message to the client
+            # to avoid leaking internal errors, stack traces, or secrets.
+            _log.exception("stream generation failed", extra={"conversation_id": conv_id})
+            yield _sse("error", {"message": "generation failed"})
             return
         yield _sse("citations", [c.model_dump() for c in citations])
         yield _sse("done", {})

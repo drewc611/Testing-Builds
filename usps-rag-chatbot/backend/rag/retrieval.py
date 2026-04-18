@@ -7,7 +7,6 @@ to a single class.
 from __future__ import annotations
 
 import json
-import pickle
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List, Tuple
@@ -54,23 +53,30 @@ class FaissStore(VectorStore):
         if self._index.ntotal == 0:
             return []
         k = min(k, self._index.ntotal)
-        D, I = self._index.search(query_vec.reshape(1, -1).astype("float32"), k)
-        return [(self._chunks[i], float(D[0][rank])) for rank, i in enumerate(I[0]) if i >= 0]
+        scores, indices = self._index.search(query_vec.reshape(1, -1).astype("float32"), k)
+        return [
+            (self._chunks[i], float(scores[0][rank]))
+            for rank, i in enumerate(indices[0])
+            if i >= 0
+        ]
 
     def save(self, path: Path) -> None:
         path.mkdir(parents=True, exist_ok=True)
         self._faiss.write_index(self._index, str(path / "index.faiss"))
-        with open(path / "chunks.pkl", "wb") as f:
-            pickle.dump([c.to_dict() for c in self._chunks], f)
-        with open(path / "meta.json", "w") as f:
+        with open(path / "chunks.json", "w", encoding="utf-8") as f:
+            json.dump([c.to_dict() for c in self._chunks], f)
+        with open(path / "meta.json", "w", encoding="utf-8") as f:
             json.dump({"dim": self._dim, "count": len(self._chunks)}, f)
 
     def load(self, path: Path) -> bool:
         if not (path / "index.faiss").exists():
             return False
+        chunks_path = path / "chunks.json"
+        if not chunks_path.exists():
+            return False
         self._index = self._faiss.read_index(str(path / "index.faiss"))
-        with open(path / "chunks.pkl", "rb") as f:
-            dicts = pickle.load(f)
+        with open(chunks_path, "r", encoding="utf-8") as f:
+            dicts = json.load(f)
         self._chunks = [Chunk(**d) for d in dicts]
         return True
 
@@ -101,17 +107,17 @@ class InMemoryStore(VectorStore):
     def save(self, path: Path) -> None:
         path.mkdir(parents=True, exist_ok=True)
         np.save(path / "vecs.npy", self._vecs)
-        with open(path / "chunks.pkl", "wb") as f:
-            pickle.dump([c.to_dict() for c in self._chunks], f)
+        with open(path / "chunks.json", "w", encoding="utf-8") as f:
+            json.dump([c.to_dict() for c in self._chunks], f)
 
     def load(self, path: Path) -> bool:
         vp = path / "vecs.npy"
-        cp = path / "chunks.pkl"
+        cp = path / "chunks.json"
         if not (vp.exists() and cp.exists()):
             return False
-        self._vecs = np.load(vp)
-        with open(cp, "rb") as f:
-            self._chunks = [Chunk(**d) for d in pickle.load(f)]
+        self._vecs = np.load(vp, allow_pickle=False)
+        with open(cp, "r", encoding="utf-8") as f:
+            self._chunks = [Chunk(**d) for d in json.load(f)]
         return True
 
     @property

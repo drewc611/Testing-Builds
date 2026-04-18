@@ -6,16 +6,21 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
+MAX_MESSAGE_CHARS = 16_000
+MAX_MESSAGES = 64
+MAX_CONVERSATION_ID_CHARS = 128
+
+
 class ChatMessage(BaseModel):
     role: str = Field(..., pattern="^(user|assistant|system)$")
-    content: str
+    content: str = Field(..., min_length=1, max_length=MAX_MESSAGE_CHARS)
 
 
 class ChatRequest(BaseModel):
-    messages: List[ChatMessage]
-    top_k: Optional[int] = None
+    messages: List[ChatMessage] = Field(..., max_length=MAX_MESSAGES)
+    top_k: Optional[int] = Field(default=None, ge=1, le=50)
     stream: bool = False
-    conversation_id: Optional[str] = None
+    conversation_id: Optional[str] = Field(default=None, max_length=MAX_CONVERSATION_ID_CHARS)
 
 
 class Citation(BaseModel):

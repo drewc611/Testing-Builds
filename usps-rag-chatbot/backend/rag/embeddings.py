@@ -46,7 +46,8 @@ class EchoEmbeddings(EmbeddingProvider):
         out = np.zeros((len(texts), self.dim), dtype="float32")
         for i, t in enumerate(texts):
             for token in t.lower().split():
-                h = int(hashlib.md5(token.encode("utf-8")).hexdigest(), 16)
+                digest = hashlib.blake2b(token.encode("utf-8"), digest_size=16).hexdigest()
+                h = int(digest, 16)
                 out[i, h % self.dim] += 1.0
             n = np.linalg.norm(out[i])
             if n:
