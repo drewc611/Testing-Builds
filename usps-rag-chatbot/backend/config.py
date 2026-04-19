@@ -39,7 +39,8 @@ class Settings(BaseSettings):
     max_context_chars: int = Field(default=8000, alias="MAX_CONTEXT_CHARS")
 
     # API
-    host: str = Field(default="0.0.0.0", alias="HOST")
+    # Default to loopback; set HOST=0.0.0.0 explicitly to expose the service.
+    host: str = Field(default="127.0.0.1", alias="HOST")
     port: int = Field(default=8000, alias="PORT")
     allowed_origins: str = Field(
         default="http://localhost:5173,http://localhost:8000,http://127.0.0.1:5500",
